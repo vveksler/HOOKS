@@ -22,4 +22,48 @@ import React, { useState } from "react";
     https://reactjs.org/docs/hooks-reference.html#usereducer
 */
 
-export const Form = () => {};
+const user = {
+  email: "test@email.com",
+  password: "supersafepassword"
+};
+
+export const Form = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
+
+  const handleChange = ({ target: { name, value } }) => {
+    setMessage(null);
+
+    if (name === "email") setEmail(value);
+    if (name === "password") setPassword(value);
+  };
+
+  const handleClick = e => {
+    e.preventDefault();
+
+    if (email === user.email && password === user.password)
+      setMessage("Вы вошли");
+  };
+
+  return (
+    <>
+      <input
+        type="text"
+        onChange={handleChange}
+        name="email"
+        data-testid="email-input"
+      />
+      <input
+        type="password"
+        onChange={handleChange}
+        name="password"
+        data-testid="password-input"
+      />
+      <button type="button" onClick={handleClick} data-testid="submit">
+        Submit
+      </button>
+      {message && <div data-testid="success-message">{message}</div>}
+    </>
+  );
+};
