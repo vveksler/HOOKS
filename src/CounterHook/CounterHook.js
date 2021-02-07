@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useCallback } from "react";
 
 /*
     В этом задании мы потренируемся писать простой кастомный хук.
@@ -15,4 +15,11 @@ import React, {useState} from 'react'
 */
 
 export const useCounter = () => {
-}
+  const [count, setCount] = useState(0);
+
+  const increment = useCallback(() => setCount(x => x + 1), []);
+
+  const decrement = useCallback(() => setCount(x => x - 1), []);
+
+  return { count, increment, decrement };
+};
